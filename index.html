@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Prerana 💙</title>
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+  overflow: hidden;
+}
+
+.container {
+  margin-top: 120px;
+}
+
+h1 { font-size: 48px; }
+h2 { margin-top: 20px; }
+
+button {
+  padding: 15px 30px;
+  font-size: 18px;
+  margin: 20px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+#yes { background: #22c55e; color: white; }
+#no { background: #ef4444; color: white; position: absolute; }
+
+/* typing effect */
+#text {
+  font-size: 22px;
+  margin-top: 20px;
+  color: #cbd5f5;
+}
+
+/* hearts */
+.heart {
+  position: fixed;
+  bottom: -10px;
+  font-size: 20px;
+  animation: float 5s linear infinite;
+}
+@keyframes float {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-100vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Hey Prerana 💙</h1>
+  <div id="text"></div>
+
+  <h2>Will you be my girlfriend? 🥺</h2>
+
+  <button id="yes" onclick="yesClick()">Yes 💙</button>
+  <button id="no" onmouseover="moveButton()">No 😭</button>
+</div>
+
+<!-- Romantic K-drama style music -->
+<audio autoplay loop>
+  <source src="https://dl.sndup.net/hnf5/sample.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// typing text lines
+const lines = [
+  "I didn’t plan this…",
+  "but somehow you became important to me.",
+  "Every little thing reminds me of you.",
+  "And I think… I really like you, Prerana 💙"
+];
+
+let i = 0;
+let j = 0;
+let currentLine = "";
+let isDeleting = false;
+
+function typeEffect() {
+  if (i < lines.length) {
+    if (j <= lines[i].length) {
+      currentLine = lines[i].substring(0, j++);
+      document.getElementById("text").innerHTML = currentLine;
+    } else {
+      setTimeout(() => {
+        j = 0;
+        i++;
+      }, 1000);
+    }
+  }
+}
+
+setInterval(typeEffect, 50);
+
+// yes button
+function yesClick() {
+  document.body.innerHTML = `
+    <h1 style="margin-top:150px;">I knew it 😭💙</h1>
+    <p>You just made me the happiest person, Prerana.</p>
+    <h2>– Kavyansh</h2>
+  `;
+}
+
+// no button moves
+function moveButton() {
+  const button = document.getElementById("no");
+  button.style.top = Math.random() * window.innerHeight + "px";
+  button.style.left = Math.random() * window.innerWidth + "px";
+}
+
+// hearts
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💙";
+  heart.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 5000);
+}, 300);
+
+</script>
+
+</body>
+</html>

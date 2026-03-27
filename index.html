@@ -8,20 +8,34 @@
 <style>
 body {
   margin: 0;
-  padding: 0;
-  font-family: 'Arial', sans-serif;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-  color: white;
-  text-align: center;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  color: white;
+  text-align: center;
+  background: linear-gradient(-45deg, #ff6f91, #ff9a9e, #fad0c4, #ffdde1);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
 }
 
 .container {
   max-width: 600px;
   padding: 20px;
+  animation: fadeIn 2s ease;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
 }
 
 h1 {
@@ -30,24 +44,48 @@ h1 {
 
 p {
   font-size: 1.2rem;
-  margin-top: 20px;
   white-space: pre-line;
 }
 
 button {
-  margin-top: 30px;
+  margin: 15px;
   padding: 12px 25px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   border: none;
   border-radius: 25px;
-  background: white;
-  color: #ff6f91;
   cursor: pointer;
   transition: 0.3s;
 }
 
+#startBtn {
+  background: white;
+  color: #ff4d6d;
+}
+
+#yesBtn {
+  background: #00ffae;
+  color: black;
+}
+
+#noBtn {
+  background: #ff4d4d;
+  color: white;
+  position: absolute;
+}
+
 button:hover {
-  background: #ffe6eb;
+  transform: scale(1.1);
+}
+
+.heart {
+  position: absolute;
+  font-size: 20px;
+  animation: float 5s linear infinite;
+}
+
+@keyframes float {
+  0% {transform: translateY(100vh); opacity: 1;}
+  100% {transform: translateY(-10vh); opacity: 0;}
 }
 </style>
 </head>
@@ -56,30 +94,54 @@ button:hover {
 
 <div class="container">
   <h1>Hey Prerana ❤️</h1>
-  
   <p id="text"></p>
+  <button id="startBtn" onclick="start()">Click here</button>
 
-  <button onclick="showMessage()">Click here</button>
+  <div id="choices" style="display:none;">
+    <button id="yesBtn" onclick="yes()">Yes ❤️</button>
+    <button id="noBtn" onmouseover="moveNo()">No 😏</button>
+  </div>
 </div>
 
 <script>
-let message = "I don’t know how to say this perfectly... but I’ll try.\n\nSomewhere between our conversations, laughs, and moments… you became really special to me.\n\nAnd now I can’t imagine not having you in my life.\n\nSo yeah… I really like you, Prerana.\n\nWill you be mine? ❤️";
+let message = "I don’t know how to say this perfectly... but I’ll try.\n\nSomewhere between our conversations, laughs, and little moments… you became really important to me.\n\nYou’re not just someone I talk to… you’re someone I think about, someone I wait for, someone who genuinely makes my day better.\n\nAnd I didn’t plan this… it just happened.\n\nI started caring more than I expected… and somewhere along the way… I fell for you.\n\nSo yeah… I love you, Prerana.\n\nNot casually, not for a moment… but genuinely, deeply.\n\nAnd I don’t want to hide it anymore.\n\nWill you be mine? ❤️";
 
 let i = 0;
+
+function start() {
+  document.getElementById("startBtn").style.display = "none";
+  typeWriter();
+}
 
 function typeWriter() {
   if (i < message.length) {
     document.getElementById("text").innerHTML += message.charAt(i);
     i++;
-    setTimeout(typeWriter, 40);
+    setTimeout(typeWriter, 35);
+  } else {
+    document.getElementById("choices").style.display = "block";
   }
 }
 
-function showMessage() {
-  document.getElementById("text").innerHTML = "";
-  i = 0;
-  typeWriter();
+function yes() {
+  document.body.innerHTML = "<h1>YOU JUST MADE ME THE HAPPIEST PERSON ❤️😭</h1>";
 }
+
+function moveNo() {
+  let btn = document.getElementById("noBtn");
+  btn.style.top = Math.random() * window.innerHeight + "px";
+  btn.style.left = Math.random() * window.innerWidth + "px";
+}
+
+setInterval(() => {
+  let heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 5000);
+}, 300);
 </script>
 
 </body>
